@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoreboard with ABBA Pattern</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .scoreboard {
+            display: flex;
+            gap: 20px;
+        }
+        .team {
+            text-align: center;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .pattern {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="scoreboard">
+            <div class="team">
+                <h2>Home</h2>
+                <p id="homeScore">0</p>
+                <button onclick="changeScore('home', 1)">+1</button>
+                <button onclick="changeScore('home', -1)">-1</button>
+            </div>
+            <div class="team">
+                <h2>Away</h2>
+                <p id="awayScore">0</p>
+                <button onclick="changeScore('away', 1)">+1</button>
+                <button onclick="changeScore('away', -1)">-1</button>
+            </div>
+        </div>
+        <div class="pattern">
+            <p>Current: <span id="currentPattern">A</span></p>
+        </div>
+    </div>
+
+    <script>
+        let homeScore = 0;
+        let awayScore = 0;
+        let totalScore = 0;
+        const pattern = ['A', 'B', 'B', 'A'];
+
+        function changeScore(team, change) {
+            if (team === 'home') {
+                homeScore = Math.max(0, homeScore + change);
+                document.getElementById('homeScore').textContent = homeScore;
+            } else {
+                awayScore = Math.max(0, awayScore + change);
+                document.getElementById('awayScore').textContent = awayScore;
+            }
+            totalScore = homeScore + awayScore;
+            updatePattern();
+        }
+
+        function updatePattern() {
+            const patternIndex = totalScore % 4;
+            document.getElementById('currentPattern').textContent = pattern[patternIndex];
+        }
+    </script>
+</body>
+</html>
